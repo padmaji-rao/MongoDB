@@ -1,0 +1,60 @@
+db.catStudents.insertMany([
+{
+        name: "Ravi",
+        marks: [
+            { cat1: { maths: 60, che: 65, eng: 85 } },
+            { cat2: { maths: 80, che: 75, eng: 70 } }
+        ]
+    },
+    {
+        name: "Anjali",
+        marks: [
+            { cat1: { maths: 55, che: 62, eng: 88 } },
+            { cat2: { maths: 78, che: 80, eng: 65 } }
+        ]
+    },
+    {
+      name: "Arjun",
+      marks: [
+        { cat1: { maths: 50, che: 60, eng: 90 } },
+        { cat2: { maths: 70, che: 70, eng: 56 } }
+      ]
+    }
+])
+
+
+
+db.catStudents.find({ name: "Arjun" }, { name: 1, marks: 1, _id: 0 });
+
+
+db.catStudents.find(
+    { name: "Arjun" },
+    { name: 1, "marks.cat1": 1, _id: 0 }
+);
+
+
+db.catStudents.find(
+    { name: "Arjun" },
+    { name: 1, "marks.cat1.eng": 1, _id: 0 }
+);
+
+
+db.catStudents.find(
+    {},
+    { name: 1, "marks.cat1.che": 1, "marks.cat2.che": 1, _id: 0 }
+);
+
+
+db.catStudents.find(
+    {},
+    { name: 1, "marks.cat1.che": 1, "marks.cat2.che": 1, _id: 0 }
+);
+
+
+db.catStudents.find(
+    { name: "Arjun" },
+    { name: 1, "marks.cat1.maths": 1, "marks.cat2.maths": 1, _id: 0 }
+);
+
+
+db.catStudents.aggregate([{$group:{_id:null,maxMaths:{$max:"$marks.cat2.maths"}}}])
