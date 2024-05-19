@@ -26,7 +26,6 @@ db.catStudents.insertMany([
 
 db.catStudents.find({ name: "Arjun" }, { name: 1, marks: 1, _id: 0 });
 
-
 db.catStudents.find(
     { name: "Arjun" },
     { name: 1, "marks.cat1": 1, _id: 0 }
@@ -58,3 +57,64 @@ db.catStudents.find(
 
 
 db.catStudents.aggregate([{$group:{_id:null,maxMaths:{$max:"$marks.cat2.maths"}}}])
+
+
+--------------------------------------------------------------------------------------
+
+db.Employees.insertMany([
+    { Name: "Amit", Age: 28, Address: "Delhi", Salary: 50000, College: "DU" },
+    { Name: "Bhavesh", Age: 32, Address: "Mumbai", Salary: 70000, College: "MU" },
+    { Name: "Chitra", Age: 25, Address: "Delhi", Salary: 60000, College: "DU" },
+    { Name: "Deepak", Age: 29, Address: "Chennai", Salary: 55000, College: "AU" },
+    { Name: "Esha", Age: 35, Address: "Mumbai", Salary: 75000, College: "MU" },
+    { Name: "Farhan", Age: 22, Address: "Delhi", Salary: 48000, College: "DU" },
+    { Name: "Geeta", Age: 27, Address: "Chennai", Salary: 62000, College: "AU" },
+    { Name: "Harsh", Age: 30, Address: "Mumbai", Salary: 68000, College: "IITB" },
+    { Name: "Isha", Age: 31, Address: "Delhi", Salary: 53000, College: "DU" },
+    { Name: "Jatin", Age: 26, Address: "Chennai", Salary: 54000, College: "AU" }
+]);
+
+
+var mapFunctionTotalSalary = function() {
+    emit(this.Address, this.Salary);
+};
+
+var reduceFunctionTotalSalary = function(key, values) {
+    return Array.sum(values);
+};
+
+
+db.Employees.mapReduce(
+    mapFunctionTotalSalary,
+    reduceFunctionTotalSalary,
+    { out: "totalSalaryByAddress" }
+);
+
+// Display the results
+db.totalSalaryByAddress.find().pretty();
+
+
+
+
+var mapFunctionAverageSalary = function() {
+    if (this.Age < 30) {
+        emit("averageSalaryUnder30", this.Salary);
+    }
+};
+
+var reduceFunctionAverageSalary = function(key, values) {
+    return Array.avg(values);
+};
+
+db.Employees.mapReduce(
+    mapFunctionAverageSalary,
+    reduceFunctionAverageSalary,
+    {
+        out: "averageSalaryUnder30",
+    }
+);
+
+// Display the results
+db.averageSalaryUnder30.find().pretty();
+
+
