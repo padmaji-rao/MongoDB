@@ -59,3 +59,42 @@ db.employees.find({ Address: { $nin: ["Hyd", "Bangalore"] } });
 
 
 db.employees.find({ Salary: { $gt: 50000 }, college: "srkr" });
+
+
+--------------------------------------------------------------------------------------------------------
+var mapFunction = function() {
+    emit(this.address, this.salary);
+};
+
+var reduceFunction = function(key, values) {
+    return Array.sum(values);
+};
+
+db.employees.mapReduce(mapFunction, reduceFunction, { out: 'totalSalaryByAddress' });
+db.totalSalaryByAddress.find();
+
+
+
+
+var mapFunction2 = function() {
+    if (this.age > 30) {
+        emit(this.age, this.salary);
+    }
+};
+
+var reduceFunction2 = function(key, values) {
+    return Array.avg(values);
+};
+
+db.employees.mapReduce(
+    mapFunction2,
+    reduceFunction2,
+    { query: { age: { $gt: 30 } }, out: 'averageSalaryAbove30' }
+);
+db.averageSalaryAbove30.find();
+
+
+
+
+
+
