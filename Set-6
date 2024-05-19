@@ -1,0 +1,48 @@
+from pymongo import MongoClient
+
+# Connect to MongoDB
+client = MongoClient('mongodb://localhost:27017/')
+
+# Create or select the database
+db = client['mydb']
+
+# Create or select the collection
+collection = db['mycol']
+
+# Insert documents
+documents = [
+    {"Srn": 1, "Sname": "Amit", "Degree": "BCA", "Sem": 6, "CGPA": 8.5},
+    {"Srn": 2, "Sname": "Bhavesh", "Degree": "BSc", "Sem": 4, "CGPA": 7.8},
+    {"Srn": 3, "Sname": "Chitra", "Degree": "BCA", "Sem": 6, "CGPA": 9.0},
+    {"Srn": 4, "Sname": "Deepak", "Degree": "BBA", "Sem": 2, "CGPA": 7.5},
+    {"Srn": 5, "Sname": "Esha", "Degree": "BA", "Sem": 8, "CGPA": 8.0},
+    {"Srn": 6, "Sname": "Farhan", "Degree": "BCA", "Sem": 6, "CGPA": 6.9},
+    {"Srn": 7, "Sname": "Geeta", "Degree": "BCom", "Sem": 3, "CGPA": 8.2},
+    {"Srn": 8, "Sname": "Harsh", "Degree": "BSc", "Sem": 5, "CGPA": 7.7},
+    {"Srn": 9, "Sname": "Isha", "Degree": "BCA", "Sem": 6, "CGPA": 8.3},
+    {"Srn": 10, "Sname": "Jatin", "Degree": "BBA", "Sem": 4, "CGPA": 7.6}
+]
+
+# Insert the documents into the collection
+collection.insert_many(documents)
+
+# Display a single document
+single_document = collection.find_one()
+print("Single Document:", single_document)
+
+# Display documents with fields Sname and Degree
+documents_sname_degree = collection.find({}, {"_id": 0, "Sname": 1, "Degree": 1})
+print("Documents with Sname and Degree:")
+for doc in documents_sname_degree:
+    print(doc)
+
+# Display documents in ascending order by Sname
+documents_sorted_by_sname = collection.find({}).sort("Sname", 1)
+print("Documents sorted by Sname in ascending order:")
+for doc in documents_sorted_by_sname:
+    print(doc)
+
+
+
+
+-----------------------------------------------------------------------------------------------------------
