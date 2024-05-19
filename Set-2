@@ -70,3 +70,16 @@ db.employee.updateOne({ eid: 3 }, { $pull: { skills: "Node.js" } });
 
 
 db.employee.updateOne({ eid: 4 }, { $inc: { salary: 5000 } });
+
+
+-----------------------------------------------------------------------------------------
+db.student.createIndex({ regdno: 1 })
+
+db.student.getIndexes()
+
+db.student.createIndex({ regdno: 1 }, { name: "This is my own name" })
+
+db.student.dropIndex("regdno_1")
+
+db.student.dropIndexes()
+
