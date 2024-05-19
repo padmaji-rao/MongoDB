@@ -1,0 +1,61 @@
+db.createCollection("employees");
+
+db.employees.insertMany([
+    {
+        _id: ObjectId('65e014c35bb2509e326f815b'),
+        name: 'Ram',
+        Address: 'Bvrm',
+        Salary: 50000,
+        college: 'srkr'
+    },
+    {
+        _id: ObjectId('65e014c35bb2509e326f815c'),
+        name: 'Hari',
+        Address: 'Hyd',
+        Salary: 150000,
+        college: 'cbit'
+    },
+    {
+        _id: ObjectId('65e014c35bb2509e326f815d'),
+        name: 'Ramya',
+        Address: 'Hyd',
+        Salary: 50000,
+        college: 'cbit'
+    },
+    {
+        _id: ObjectId('65e014c35bb2509e326f815e'),
+        name: 'kiran',
+        Address: 'Eluru',
+        Salary: 30000,
+        college: 'crr'
+    },
+    {
+        _id: ObjectId('65e014c35bb2509e326f815f'),
+        name: 'satish',
+        Address: 'Eluru',
+        Salary: 50000,
+        college: 'crr'
+    },
+    {
+        _id: ObjectId('65e014c35bb2509e326f8160'),
+        name: 'suresh',
+        Address: 'Bvrm',
+        Salary: 150000,
+        college: 'srkr'
+    }
+]);
+
+
+db.employees.find({ Salary: 50000 });
+
+
+db.employees.find({ Address: { $in: ["Hyd", "Bangalore"] } });
+
+
+db.employees.find({ Salary: { $gt: 50000 } });
+
+
+db.employees.find({ Address: { $nin: ["Hyd", "Bangalore"] } });
+
+
+db.employees.find({ Salary: { $gt: 50000 }, college: "srkr" });
