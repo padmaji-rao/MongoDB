@@ -1,0 +1,49 @@
+use mydb
+
+db.employee.insertMany([
+  { Name: "Ravi", Address: "Bhimavaram", Salary: 12000 },
+  { Name: "Anjali", Address: "Hyderabad", Salary: 25000 },
+  { Name: "Vijay", Address: "Bhimavaram", Salary: 18000 },
+  { Name: "Priya", Address: "Chennai", Salary: 22000 },
+  { Name: "Rahul", Address: "Bangalore", Salary: 30000 },
+  { Name: "Sita", Address: "Bhimavaram", Salary: 15000 },
+  { Name: "Ramesh", Address: "Mumbai", Salary: 35000 },
+  { Name: "Meena", Address: "Chennai", Salary: 17000 },
+  { Name: "Ajay", Address: "Hyderabad", Salary: 14000 },
+  { Name: "Kiran", Address: "Bangalore", Salary: 20000 }
+])
+
+
+db.employee.aggregate([
+  { $match: { Address: "Bhimavaram" } }
+])
+
+db.employee.aggregate([
+  { $project: { _id: 0, Name: 1, Salary: 1 } }
+])
+
+db.employee.aggregate([
+  { $match: { Salary: { $gt: 10000 } } },
+  { $project: { _id: 0, Name: 1, Salary: 1 } }
+])
+
+db.employee.aggregate([
+  { $group: { _id: "$Address", totalSalary: { $sum: "$Salary" } } }
+])
+
+db.employee.aggregate([
+  { $group: { _id: "$Address", totalEmployees: { $sum: 1 } } }
+])
+
+db.employee.aggregate([
+  { $group: { _id: "$Address", maxSalary: { $max: "$Salary" } } }
+])
+
+db.employee.aggregate([
+  { $group: { _id: "$Address", minSalary: { $min: "$Salary" } } }
+])
+
+db.employee.aggregate([
+  { $group: { _id: "$Address", avgSalary: { $avg: "$Salary" } } }
+])
+
