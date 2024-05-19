@@ -31,3 +31,15 @@ db.students.aggregate([
 db.students.aggregate([
     { $group : { _id: "$name",totalMarks : { $sum: { $add: [ "$Marks.Eng", "$Marks.Maths", "$Marks.Chemistry"]}}}}
 ]);
+
+
+----------------------------------------------------------------------------------------------------------------------
+db.students.createIndex({ name: 1 });
+
+db.students.getIndexes();
+
+db.students.createIndex({ "Marks.Eng": 1 }, { name: "EnglishMarksIndex" });
+
+db.students.dropIndex("EnglishMarksIndex");
+
+db.students.dropIndexes();
