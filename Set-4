@@ -1,0 +1,33 @@
+use mydb;
+
+db.students.insertMany([
+    { name: "Swapna", Marks: { Eng: 30, Maths: 60, Chemistry: 90 } },
+    { name: "Ravi", Marks: { Eng: 50, Maths: 45, Chemistry: 80 } },
+    { name: "Anjali", Marks: { Eng: 70, Maths: 85, Chemistry: 88 } },
+    { name: "Kiran", Marks: { Eng: 65, Maths: 35, Chemistry: 95 } },
+    { name: "Priya", Marks: { Eng: 55, Maths: 90, Chemistry: 75 } },
+    { name: "Rahul", Marks: { Eng: 45, Maths: 40, Chemistry: 85 } },
+    { name: "Deepa", Marks: { Eng: 60, Maths: 55, Chemistry: 70 } },
+    { name: "Vikram", Marks: { Eng: 80, Maths: 30, Chemistry: 78 } },
+    { name: "Sunita", Marks: { Eng: 40, Maths: 50, Chemistry: 92 } },
+    { name: "Amit", Marks: { Eng: 75, Maths: 65, Chemistry: 82 } }
+]);
+
+
+db.students.find({}, { name: 1, "Marks.Eng": 1, _id: 0 });
+
+
+db.students.find({ name: "Swapna" }, { "Marks.Chemistry": 1, _id: 0 });
+
+
+db.students.find({ "Marks.Maths": { $lt: 40 } });
+
+
+db.students.aggregate([
+    { $group: { _id: null, averageEngMarks: { $avg: "$Marks.Eng" } } }
+]);
+
+
+db.students.aggregate([
+    { $group : { _id: "$name",totalMarks : { $sum: { $add: [ "$Marks.Eng", "$Marks.Maths", "$Marks.Chemistry"]}}}}
+]);
