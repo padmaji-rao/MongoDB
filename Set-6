@@ -46,3 +46,65 @@ for doc in documents_sorted_by_sname:
 
 
 -----------------------------------------------------------------------------------------------------------
+
+use mydb
+
+db.employee.insertMany([
+  {
+    eid: 1,
+    ename: "Ravi",
+    dept: "Sales",
+    desig: "Manager",
+    salary: 60000,
+    yoj: 2015,
+    address: { dno: "10", street: "MG Road", locality: "Banashankari", city: "Bangalore" }
+  },
+  {
+    eid: 2,
+    ename: "Anjali",
+    dept: "Marketing",
+    desig: "Executive",
+    salary: 45000,
+    yoj: 2018,
+    address: { dno: "22", street: "Brigade Road", locality: "Indiranagar", city: "Bangalore" }
+  },
+  {
+    eid: 3,
+    ename: "Vijay",
+    dept: "HR",
+    desig: "Recruiter",
+    salary: 40000,
+    yoj: 2019,
+    address: { dno: "15", street: "Church Street", locality: "Koramangala", city: "Bangalore" }
+  },
+  {
+    eid: 4,
+    ename: "Priya",
+    dept: "Finance",
+    desig: "Analyst",
+    salary: 50000,
+    yoj: 2017,
+    address: { dno: "18", street: "Commercial Street", locality: "Whitefield", city: "Bangalore" }
+  },
+  {
+    eid: 5,
+    ename: "Rahul",
+    dept: "IT",
+    desig: "Developer",
+    salary: 70000,
+    yoj: 2016,
+    address: { dno: "20", street: "MG Road", locality: "Jayanagar", city: "Bangalore" }
+  }
+])
+
+
+db.employee.updateOne({ eid: 1 }, { $set: { salary: 65000 } })
+
+db.employee.updateOne({ eid: 2 }, { $unset: { "address.locality": "" } })
+
+db.employee.updateOne({ eid: 3 }, { $push: { skills: "Leadership" } })
+
+db.employee.updateOne({ eid: 3 }, { $pull: { skills: "Leadership" } })
+
+db.employee.updateOne({ eid: 4 }, { $inc: { salary: 5000 } })
+
