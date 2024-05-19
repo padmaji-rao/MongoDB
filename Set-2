@@ -1,0 +1,72 @@
+use mydb;
+
+db.createCollection("employee");
+
+db.employee.insertMany([
+    {
+        eid: 1, ename: "Alice", dept: "HR", desig: "Manager", salary: 60000, yoj: 2015,
+        address: { dno: "101", street: "1st Ave", locality: "Downtown", city: "New York" },
+        skills: ["Recruitment", "Training", "Employee Relations"]
+    },
+    {
+        eid: 2, ename: "Bob", dept: "Finance", desig: "Analyst", salary: 55000, yoj: 2016,
+        address: { dno: "202", street: "2nd Ave", locality: "Midtown", city: "New York" },
+        skills: ["Financial Analysis", "Excel", "Data Analysis"]
+    },
+    {
+        eid: 3, ename: "Charlie", dept: "IT", desig: "Developer", salary: 65000, yoj: 2018,
+        address: { dno: "303", street: "3rd Ave", locality: "Uptown", city: "New York" },
+        skills: ["JavaScript", "React", "Node.js"]
+    },
+    {
+        eid: 4, ename: "David", dept: "Sales", desig: "Executive", salary: 50000, yoj: 2017,
+        address: { dno: "404", street: "4th Ave", locality: "Downtown", city: "New York" },
+        skills: ["Sales", "Customer Service", "Negotiation"]
+    },
+    {
+        eid: 5, ename: "Eve", dept: "IT", desig: "Developer", salary: 70000, yoj: 2019,
+        address: { dno: "505", street: "5th Ave", locality: "Midtown", city: "New York" },
+        skills: ["Java", "Spring", "Hibernate"]
+    },
+    {
+        eid: 6, ename: "Frank", dept: "HR", desig: "Executive", salary: 48000, yoj: 2020,
+        address: { dno: "606", street: "6th Ave", locality: "Uptown", city: "New York" },
+        skills: ["Recruitment", "Payroll", "Employee Onboarding"]
+    },
+    {
+        eid: 7, ename: "Grace", dept: "Finance", desig: "Manager", salary: 72000, yoj: 2015,
+        address: { dno: "707", street: "7th Ave", locality: "Downtown", city: "New York" },
+        skills: ["Budgeting", "Financial Reporting", "Compliance"]
+    },
+    {
+        eid: 8, ename: "Hank", dept: "Sales", desig: "Analyst", salary: 53000, yoj: 2018,
+        address: { dno: "808", street: "8th Ave", locality: "Midtown", city: "New York" },
+        skills: ["Market Research", "Data Analysis", "Excel"]
+    },
+    {
+        eid: 9, ename: "Ivy", dept: "IT", desig: "Manager", salary: 80000, yoj: 2014,
+        address: { dno: "909", street: "9th Ave", locality: "Uptown", city: "New York" },
+        skills: ["Project Management", "Agile", "DevOps"]
+    },
+    {
+        eid: 10, ename: "Jack", dept: "HR", desig: "Analyst", salary: 52000, yoj: 2016,
+        address: { dno: "1010", street: "10th Ave", locality: "Downtown", city: "New York" },
+        skills: ["Data Analysis", "Employee Engagement", "HRIS"]
+    }
+]);
+
+
+
+db.employee.updateOne({ eid: 1 }, { $set: { salary: 65000 } });
+
+
+db.employee.updateOne({ eid: 2 }, { $unset: { dept: "" } });
+
+
+db.employee.updateOne({ eid: 3 }, { $push: { skills: "MongoDB" } });
+
+
+db.employee.updateOne({ eid: 3 }, { $pull: { skills: "Node.js" } });
+
+
+db.employee.updateOne({ eid: 4 }, { $inc: { salary: 5000 } });
